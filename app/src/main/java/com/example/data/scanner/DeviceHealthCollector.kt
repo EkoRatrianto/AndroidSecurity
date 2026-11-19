@@ -186,6 +186,8 @@ class DeviceHealthCollector(private val context: Context) {
         )
     }
 
+    fun collectSensorStatus(): SensorHardwareInfo = collectSensorHardwareInfo()
+
     private fun collectSensorHardwareInfo(): SensorHardwareInfo {
         val pm = context.packageManager
         val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as? SensorManager
