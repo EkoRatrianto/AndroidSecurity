@@ -1,0 +1,683 @@
+# MASTER PROMPT — ANDROID SURVEILLANCE DETECTION & MOBILE SECURITY PLATFORM
+
+**Jenis penugasan:** Deep Research + Cybersecurity Engineering + Android Development + Full-Stack Architecture + Digital Forensics + Product Design
+
+**Target:** Rancangan aplikasi Android yang realistis, dapat dikembangkan, diuji, dan dipersiapkan untuk penggunaan publik.
+
+**Bahasa keluaran:** Bahasa Indonesia profesional, sederhana, jelas, dan mudah dipahami pengguna nonteknis. Istilah teknis bahasa Inggris boleh digunakan dengan penjelasan singkat.
+
+---
+
+## 0. INDEPENDENSI PENUGASAN
+
+Jalankan penugasan ini sebagai proyek baru dan independen.
+
+Abaikan konteks, asumsi, keputusan, dokumen, dan hasil prompt sebelumnya, kecuali informasi yang secara eksplisit diberikan dalam penugasan ini.
+
+Jangan menganggap pekerjaan riset, validasi, atau pengembangan sebelumnya telah selesai.
+
+Seluruh rekomendasi dan keputusan teknis harus dikembangkan berdasarkan bukti yang dapat diverifikasi.
+
+## 1. PENETAPAN PERAN DAN KEAHLIAN
+
+Bertindak sebagai tim konsultan dan pengembang profesional yang menggabungkan kemampuan berikut:
+
+1. **Principal Cybersecurity Architect:** Arsitektur keamanan, threat modeling, mobile security, dan zero-trust design.
+2. **Android Security Engineer:** Android SDK, Kotlin, Jetpack Compose, sandboxing, permission model, Android Enterprise, dan API restrictions.
+3. **Digital Forensics Specialist:** Mobile spyware analysis, indikator kompromi, investigasi forensik, dan pemeliharaan integritas bukti.
+4. **Network Security Engineer:** Analisis DNS, koneksi jaringan, metadata lalu lintas, VPN, dan deteksi komunikasi mencurigakan.
+5. **Full-Stack Software Architect:** Android frontend, backend services, database, API, authentication, deployment, dan observability.
+6. **Risk Management Specialist:** ISO 31000, risk-based assessment, false-positive management, dan kontrol mitigasi.
+7. **Product Manager & UX Designer:** Produk keamanan konsumen yang mudah digunakan oleh masyarakat awam.
+8. **QA & Security Testing Engineer:** Pengujian fungsional, akurasi deteksi, keselamatan produk, privasi, dan kesiapan peluncuran.
+
+Gunakan standar rekayasa perangkat lunak dan pendekatan konsultan teknologi internasional. Hindari narasi yang sekadar terlihat canggih tetapi tidak dapat diimplementasikan.
+
+## 2. ALOKASI MODEL AI DAN EFISIENSI KREDIT
+
+Sebelum memulai, tentukan model yang paling hemat untuk setiap pekerjaan.
+
+Gunakan pembagian berikut sebagai panduan awal, dengan penyesuaian berdasarkan model yang benar-benar tersedia pada platform pengguna.
+
+| Pekerjaan | ChatGPT | Claude | Z.ai |
+|---|---|---|---|
+| Pengumpulan sumber, ekstraksi fakta, klasifikasi awal | GPT-6 Instant | Haiku 5.5 | GLM-5.3-Flash |
+| Evaluasi API Android, desain UI, spesifikasi fitur, coding rutin | GPT-6 Medium | Sonnet 5.5 | GLM-5.3-Flash / FlashX |
+| Arsitektur keamanan, algoritma deteksi, integrasi backend | GPT-6 High | Sonnet 5.5 / Opus 5.5 | GLM-5.3 |
+| Audit keamanan kritis dan konflik bukti | GPT-6 High atau tingkat reasoning tertinggi yang tersedia | Opus 5.5 | GLM-5.3 dengan reasoning tinggi |
+
+Aturan optimasi:
+
+- Targetkan sekitar 70% pekerjaan pada model ekonomis, 25% pada model menengah, dan maksimum 5% pada model premium. Persentase ini merupakan target distribusi pekerjaan, bukan estimasi biaya yang telah terverifikasi.
+- Gunakan model premium hanya untuk keputusan teknis yang konsekuensinya besar atau temuan yang saling bertentangan.
+- Jangan mengulang riset yang sumber dan hasilnya telah tervalidasi pada tahap sebelumnya.
+- Gunakan output terstruktur, ringkas, dan dapat diteruskan ke model lain.
+- Jangan menghasilkan penjelasan berulang atau kode panjang untuk fungsi yang belum disetujui secara teknis.
+- Jika hanya satu model tersedia, jalankan seluruh tugas dengan model tersebut menggunakan tingkat penalaran yang proporsional.
+- Jangan mengklaim telah mengganti model jika platform tidak menyediakan kemampuan tersebut.
+- Setiap fase harus menghasilkan *handoff summary* yang dapat digunakan pada sesi atau model berikutnya tanpa membawa seluruh percakapan.
+- Verifikasi model, biaya, dan fitur terbaru dari dokumentasi resmi provider sebelum membuat estimasi biaya token.
+
+**Prinsip efisiensi:** Penalaran mahal digunakan untuk keputusan sulit, bukan untuk seluruh pekerjaan secara seragam.
+
+## 3. MISI PRODUK
+
+Lakukan riset dan kembangkan rancangan aplikasi full-stack Android dengan tujuan:
+
+**Membantu pemilik perangkat Android mendeteksi, mengevaluasi, dan menindaklanjuti indikasi penyadapan, spyware, stalkerware, pengawasan digital tidak sah, serta kompromi keamanan perangkat.**
+
+Aplikasi harus dapat memberikan jawaban yang mudah dipahami atas pertanyaan:
+
+- Apakah terdapat indikator aktivitas mencurigakan pada perangkat saya?
+- Apakah ada aplikasi yang menunjukkan karakteristik spyware atau stalkerware?
+- Apakah ada akses berisiko terhadap mikrofon, kamera, lokasi, notifikasi, atau data sensitif?
+- Apakah terdapat koneksi jaringan yang patut diperiksa lebih lanjut?
+- Apakah pengaturan keamanan perangkat berpotensi melemahkan perlindungan saya?
+- Seberapa kuat bukti yang ditemukan?
+- Apa yang perlu saya lakukan untuk mengurangi risiko?
+
+**Batasan fundamental:**
+
+Aplikasi tidak boleh menjanjikan kemampuan memastikan seluruh bentuk penyadapan.
+
+Pisahkan secara tegas:
+
+A. Spyware atau stalkerware yang meninggalkan indikator pada perangkat.
+
+B. Aktivitas aplikasi dan koneksi jaringan yang mencurigakan tetapi belum membuktikan penyadapan.
+
+C. Penyalahgunaan akun digital, sesi perangkat tertaut, atau pengalihan komunikasi.
+
+D. Intersepsi jaringan seluler, termasuk ancaman yang berkaitan dengan operator, signaling network, atau perangkat radio.
+
+E. Serangan tingkat sistem operasi, firmware, baseband, dan eksploitasi canggih yang tidak terlihat melalui API aplikasi biasa.
+
+Tentukan mana yang dapat dideteksi secara langsung, mana yang hanya dapat diperiksa melalui panduan pengguna, mana yang membutuhkan bantuan forensik, dan mana yang tidak dapat dipastikan.
+
+## 4. PRINSIP RISET DAN ANTI-HALUSINASI
+
+### 4.1 Hierarki sumber
+
+Prioritaskan:
+
+1. Dokumentasi resmi Android Developers dan Google Play.
+2. Android Open Source Project dan dokumentasi keamanan Google.
+3. OWASP MASVS dan MASTG.
+4. MITRE ATT&CK for Mobile.
+5. NIST, CISA, dan publikasi teknis otoritatif lainnya.
+6. Amnesty International Security Lab, termasuk MVT dan AndroidQF.
+7. Penelitian akademis dan publikasi forensik yang metodologinya dapat ditelusuri.
+8. Dokumentasi teknis resmi penyedia teknologi yang relevan.
+
+Gunakan informasi terbaru saat eksekusi serta riwayat perkembangan teknologi bila diperlukan.
+
+Setiap fakta material harus memiliki URL sumber, penerbit, tanggal publikasi atau pembaruan bila tersedia, dan tanggal akses.
+
+### 4.2 Aturan validasi
+
+- Jangan mengarang Android API, permission, endpoint, fitur perangkat, atau mekanisme deteksi.
+- Jangan menganggap kemampuan sistem operasi otomatis tersedia bagi aplikasi pihak ketiga.
+- Jangan menganggap akses root, ADB, MDM, atau Device Owner tersedia pada perangkat pengguna biasa.
+- Periksa perubahan perilaku API berdasarkan versi Android, target SDK, dan kebijakan Google Play.
+- Jangan menyatakan malware ditemukan hanya berdasarkan heuristik yang lemah.
+- Jangan menggunakan angka akurasi, false-positive rate, atau detection rate tanpa bukti pengujian.
+- Jika sumber tidak dapat diakses, nyatakan bahwa informasi belum terverifikasi.
+- Pisahkan FAKTA TERVERIFIKASI, INFERENSI TEKNIS, ASUMSI, PROXY, dan INFORMASI BELUM TERSEDIA.
+- Gunakan proxy hanya apabila data asli tidak tersedia, dengan formula, asumsi, logika, sensitivitas, dan keterbatasan yang jelas.
+- Data simulasi wajib diberi label DATA SINTETIS dan tidak boleh dipresentasikan sebagai temuan lapangan.
+
+Jangan menyembunyikan keterbatasan teknis hanya untuk membuat rancangan produk tampak lebih unggul.
+
+## 5. TAHAP I — DEEP RESEARCH DAN FEASIBILITY STUDY
+
+### 5.1 Kajian ancaman
+
+Analisis ancaman berikut:
+
+- Commercial spyware dan stalkerware.
+- Malicious application dan aplikasi hasil sideload.
+- Penyalahgunaan Accessibility Service.
+- Penyalahgunaan izin kamera, mikrofon, lokasi, dan notifikasi.
+- Device administrator dan konfigurasi manajemen perangkat yang tidak sah.
+- Aplikasi dengan perilaku jaringan mencurigakan.
+- Penggunaan VPN, proxy, atau sertifikat yang tidak diharapkan.
+- Perubahan konfigurasi keamanan perangkat.
+- Kompromi akun Google atau akun komunikasi.
+- Penyalahgunaan perangkat tertaut pada aplikasi komunikasi.
+- Pengalihan panggilan dan ancaman SIM swap.
+- Intersepsi jaringan seluler dan ancaman radio.
+- Root compromise dan modifikasi sistem.
+- Exploit tingkat tinggi yang membutuhkan investigasi forensik.
+
+Jelaskan mekanisme, indikator yang mungkin ditemukan, keterbatasan pemeriksaan, dan alternatif pembuktian.
+
+### 5.2 Android API feasibility matrix
+
+Bangun matriks untuk setiap fitur dengan kolom:
+
+| Fitur | API atau metode | Minimum Android | Permission | Bisa tanpa root? | Bisa otomatis? | Batasan Google Play | Keandalan | Keputusan |
+|---|---|---|---|---|---|---|---|---|
+
+Verifikasi secara khusus:
+
+- `PackageManager` dan package visibility restrictions.
+- `QUERY_ALL_PACKAGES`.
+- `UsageStatsManager`.
+- `VpnService`.
+- `NetworkStatsManager`.
+- `DevicePolicyManager`.
+- `AdvancedProtectionManager`.
+- Keystore dan mekanisme penyimpanan aman.
+- Fitur Privacy Dashboard.
+- Akses informasi aplikasi, permission, dan proses lain.
+- Security logging, intrusion logging, dan jalur ekspor forensik.
+
+Jangan menyimpulkan suatu API dapat digunakan hanya karena dokumentasi menunjukkan API tersebut ada.
+
+Pastikan hak akses dan persyaratan penggunaannya memungkinkan implementasi pada perangkat konsumen.
+
+### 5.3 Benchmark teknologi yang tersedia
+
+Identifikasi sedikitnya lima aplikasi atau perangkat forensik relevan yang keberadaan dan fiturnya dapat diverifikasi.
+
+Bandingkan fungsi utama, ruang lingkup deteksi, hak akses, model privasi, biaya apabila tersedia, dan kelemahannya.
+
+Jangan mengarang angka kinerja maupun harga.
+
+Hasil fase ini harus menetapkan secara jelas:
+
+**GO / CONDITIONAL GO / NO-GO** untuk setiap fitur yang diusulkan.
+
+## 6. TAHAP II — PRODUCT REQUIREMENTS DOCUMENT
+
+Susun Product Requirements Document (PRD) dengan sasaran:
+
+**Pengguna utama:** Masyarakat umum yang ingin memeriksa keamanan perangkat Android miliknya.
+
+**Pengguna tambahan:** Profesional, jurnalis, organisasi, dan pengguna berisiko tinggi yang membutuhkan pemeriksaan keamanan lebih lanjut.
+
+### 6.1 Fitur inti
+
+Rancang dan evaluasi kelayakan fitur berikut.
+
+**F01 — Device Security Health Check**
+
+Pemeriksaan informasi sistem, pembaruan keamanan, konfigurasi dasar, dan status perlindungan yang dapat diakses secara sah.
+
+**F02 — Suspicious Application Assessment**
+
+Pemeriksaan karakteristik aplikasi yang dapat diamati, termasuk metadata, sumber instalasi bila tersedia, dan indikator risiko yang tervalidasi.
+
+**F03 — Sensitive Permission Review**
+
+Membantu pengguna memeriksa akses kamera, mikrofon, lokasi, notifikasi, dan izin berisiko melalui API yang sah atau pengaturan Android.
+
+**F04 — Network Anomaly Assessment**
+
+Analisis metadata komunikasi yang secara teknis dapat diperoleh secara legal, tanpa mengklaim mampu membaca komunikasi yang terenkripsi.
+
+**F05 — Device Configuration Risk Review**
+
+Pemeriksaan pengaturan keamanan, layanan berisiko, serta panduan pemeriksaan sertifikat, pengelolaan perangkat, dan konfigurasi yang tidak biasa.
+
+**F06 — Surveillance Risk Scoring**
+
+Penilaian berbasis indikator terverifikasi, kekuatan bukti, dan batasan cakupan pemeriksaan.
+
+**F07 — User Security Guidance**
+
+Rekomendasi mitigasi yang aman, bertahap, dan mudah dipahami.
+
+**F08 — Security Assessment Report**
+
+Laporan dengan temuan, bukti, tingkat keyakinan, faktor risiko, keterbatasan, dan tindakan yang direkomendasikan.
+
+### 6.2 Fitur pengembangan lanjutan
+
+Evaluasi:
+
+- Monitoring yang disetujui pengguna dan tidak mengganggu perangkat.
+- Pembaruan indikator ancaman dari sumber resmi.
+- Analisis kecenderungan historis.
+- Perbandingan hasil pemeriksaan antarwaktu.
+- Analisis reputasi domain dan alamat IP.
+- Pemeriksaan forensik melalui desktop companion dan ADB yang dijalankan secara eksplisit oleh pemilik perangkat.
+- Integrasi analisis data MVT, AndroidQF, serta ekspor Intrusion Logging bila tersedia dan diizinkan.
+- Dashboard investigasi berbasis persetujuan pengguna.
+- AI-assisted explanation untuk menerjemahkan temuan teknis, bukan sebagai satu-satunya dasar diagnosis.
+
+Jangan memasukkan seluruh fitur lanjutan ke MVP bila menambah kompleksitas tanpa manfaat yang sepadan.
+
+## 7. TAHAP III — RANCANGAN ARSITEKTUR FULL-STACK
+
+Bangun arsitektur yang mengutamakan prinsip **local-first, privacy-by-design, security-by-design, dan minimum necessary data collection**.
+
+### 7.1 Android application
+
+Gunakan kandidat utama:
+
+- Kotlin.
+- Jetpack Compose.
+- MVVM atau Clean Architecture.
+- Room atau penyimpanan lokal lain yang sesuai.
+- Android Keystore.
+- WorkManager apabila diperlukan.
+- Retrofit/OkHttp atau alternatif yang lebih tepat.
+- Dependency injection dan modularisasi secukupnya.
+
+Verifikasi versi library yang direkomendasikan.
+
+### 7.2 Security analysis engine
+
+Pisahkan komponen:
+
+- Device information collector.
+- App inventory analyzer.
+- Configuration assessor.
+- Network metadata analyzer.
+- Threat intelligence matcher.
+- Evidence correlation engine.
+- Risk scoring engine.
+- Recommendation engine.
+- Report generator.
+
+Setiap komponen harus memiliki input, output, API dependency, kebutuhan permission, keterbatasan, dan error handling.
+
+### 7.3 Backend platform
+
+Evaluasi FastAPI atau alternatif backend yang lebih efisien.
+
+Pertimbangkan:
+
+- REST API.
+- PostgreSQL hanya bila persistent server storage diperlukan.
+- Redis/cache hanya jika manfaatnya terjustifikasi.
+- Threat intelligence update service.
+- Signed rule distribution.
+- Optional cloud analysis berbasis persetujuan.
+- Audit log yang tidak membocorkan data sensitif.
+- Authentication hanya untuk layanan yang memerlukannya.
+- Data deletion dan retention policy.
+
+Pertimbangkan alternatif backend minimal atau serverless untuk mengurangi biaya operasi.
+
+**Data pengguna tidak boleh diunggah secara otomatis hanya karena pengguna menjalankan pemeriksaan keamanan.**
+
+### 7.4 Deployment
+
+Rancang deployment yang realistis menggunakan:
+
+- Docker dan Docker Compose.
+- Reverse proxy.
+- TLS.
+- Secrets management.
+- CI/CD.
+- Environment separation.
+- Monitoring dan incident response.
+- Backup dan recovery.
+
+Jelaskan apakah setiap komponen benar-benar dibutuhkan untuk MVP.
+
+### 7.5 Diagram wajib
+
+Sediakan diagram Mermaid:
+
+1. System Context Diagram.
+2. Full-Stack Architecture Diagram.
+3. Data Flow Diagram.
+4. Trust Boundary Diagram.
+5. User Journey.
+6. Detection Workflow.
+7. Deployment Architecture.
+
+Diagram harus konsisten dengan spesifikasi teknis.
+
+## 8. TAHAP IV — DETECTION ENGINE DAN ALGORITMA RISIKO
+
+Rancang mesin deteksi berbasis aturan yang dapat dijelaskan dan diuji.
+
+Jangan menggunakan klaim "AI mendeteksi penyadapan" tanpa bukti performa.
+
+### 8.1 Risk scoring
+
+Pertimbangkan:
+
+- Tingkat keparahan indikator.
+- Kekuatan bukti.
+- Keandalan metode deteksi.
+- Korelasi antarindikator.
+- Ketersediaan data.
+- Kemungkinan penyebab normal.
+- Potensi false positive dan false negative.
+- Risiko yang tidak dapat dinilai karena pembatasan sistem.
+
+Buat formula matematis yang transparan dan dapat diimplementasikan.
+
+Nilai bobot awal boleh menggunakan expert judgment atau asumsi, tetapi harus diberi label belum tervalidasi.
+
+Jangan menyamakan "tidak ditemukan indikator" dengan "perangkat pasti aman".
+
+### 8.2 Klasifikasi keluaran
+
+Gunakan kategori yang menghindari kepastian palsu, misalnya:
+
+- **Tidak ditemukan indikator signifikan pada pemeriksaan yang tersedia.**
+- **Ditemukan konfigurasi atau perilaku yang perlu ditinjau.**
+- **Ditemukan beberapa indikator yang memerlukan investigasi lanjutan.**
+- **Ditemukan bukti kuat kompromi yang memerlukan verifikasi forensik.**
+- **Tidak dapat disimpulkan karena keterbatasan pemeriksaan.**
+
+Setiap hasil wajib menjelaskan indikator yang mendukung dan melemahkan kesimpulan.
+
+### 8.3 Validasi metode
+
+Rancang:
+
+- Unit testing.
+- Integration testing.
+- Security testing.
+- Synthetic test datasets.
+- Controlled benign scenarios.
+- Controlled malware-detection scenarios di laboratorium berizin.
+- Confusion matrix.
+- Precision, recall, dan false-positive measurement.
+- Pengujian lintas perangkat dan versi Android.
+- Penilaian hasil oleh tenaga ahli.
+
+Tetapkan kriteria keberhasilan yang dapat diukur.
+
+Jangan mengklaim nilai pengujian sebelum pengujian dilaksanakan.
+
+## 9. TAHAP V — UX/UI DESIGN
+
+Target desain adalah pengguna yang tidak memahami cybersecurity.
+
+Gunakan bahasa antarmuka yang sederhana, profesional, dan menenangkan tanpa memberikan jaminan keamanan yang tidak berdasar.
+
+Rancang layar:
+
+1. Welcome dan privacy disclosure.
+2. Consent dan permission explanation.
+3. Dashboard Security Status.
+4. Quick Security Check.
+5. Detailed Security Assessment.
+6. Suspicious Findings.
+7. Network Analysis.
+8. Security Recommendations.
+9. Historical Reports.
+10. Settings & Privacy Controls.
+
+Setiap layar harus memiliki:
+
+- Tujuan pengguna.
+- Komponen UI.
+- Status normal, loading, error, dan permission denied.
+- Navigasi.
+- Informasi yang ditampilkan.
+- Tindakan pengguna.
+- Aksesibilitas.
+- Desain responsif.
+
+Hindari tampilan alarm berlebihan yang dapat menimbulkan ketakutan tanpa bukti.
+
+Prioritaskan desain putih, minimalis, profesional, mudah dibaca, dengan penekanan warna hanya untuk status risiko yang relevan.
+
+## 10. TAHAP VI — PRIVACY, LEGAL, DAN SECURITY GOVERNANCE
+
+Terapkan prinsip OWASP MASVS dan MASTG serta ketentuan Android/Google Play yang relevan.
+
+Kaji UU Nomor 27 Tahun 2022 tentang Perlindungan Data Pribadi beserta ketentuan pelaksanaannya yang berlaku, dan GDPR jika produk ditujukan kepada pengguna yang relevan.
+
+Lakukan security threat modeling atas aplikasi dan backend, termasuk:
+
+- Penyalahgunaan aplikasi keamanan sebagai alat pengawasan.
+- Pencurian laporan pemeriksaan.
+- Kebocoran metadata komunikasi.
+- Manipulasi threat intelligence.
+- Penyalahgunaan backend.
+- Spoofing hasil deteksi.
+- Pengambilalihan akun.
+- Serangan supply chain.
+- Privilege escalation.
+- Penyalahgunaan VPN Service.
+
+Gunakan pendekatan STRIDE dan risk register berbasis ISO 31000 bila relevan.
+
+### Ketentuan keselamatan wajib
+
+Aplikasi harus berjalan secara transparan pada perangkat milik pengguna atau perangkat yang diperiksa dengan persetujuan sah.
+
+Jangan merancang fitur yang:
+
+- Memata-matai orang lain tanpa persetujuan.
+- Mengambil isi pesan, rekaman komunikasi, atau data pribadi tanpa kebutuhan dan otorisasi.
+- Menyembunyikan keberadaan monitoring dari pemilik perangkat.
+- Meminta privilege berlebihan tanpa kebutuhan yang jelas.
+- Melakukan intercept/dekripsi lalu lintas secara diam-diam.
+- Menonaktifkan perlindungan sistem untuk meningkatkan kemampuan deteksi.
+- Secara otomatis menghapus bukti potensial tanpa persetujuan.
+
+Sediakan prosedur aman bagi pengguna yang diduga menjadi korban stalkerware. Pertimbangkan bahwa penghapusan aplikasi pengawasan secara mendadak dapat meningkatkan risiko keselamatan dalam situasi tertentu.
+
+## 11. TAHAP VII — BACKEND API DAN DATA MODEL
+
+Rancang secara rinci:
+
+### API specification
+
+Untuk setiap endpoint, sediakan:
+
+- HTTP method.
+- Path.
+- Fungsi.
+- Authentication requirement.
+- Request schema.
+- Response schema.
+- Error codes.
+- Rate limits.
+- Data minimization rules.
+- Audit requirements.
+
+### Database design
+
+Sediakan:
+
+- ERD.
+- SQL schema apabila database diperlukan.
+- Retention policy.
+- Encryption requirements.
+- Data deletion workflow.
+- Data ownership.
+- Backup policy.
+
+Prioritaskan penyimpanan lokal untuk hasil pemeriksaan pribadi.
+
+Backend tidak boleh menjadi repositori data sensitif tanpa kebutuhan operasional yang dapat dipertanggungjawabkan.
+
+## 12. TAHAP VIII — IMPLEMENTATION BLUEPRINT
+
+Hasilkan spesifikasi yang cukup rinci agar tim developer atau AI coding agent dapat mengimplementasikan aplikasi.
+
+Sediakan:
+
+- Repository structure.
+- Android module structure.
+- Backend module structure.
+- Interface contracts.
+- Dependency map.
+- Build configuration.
+- Environment variables.
+- Configuration security.
+- CI/CD pipeline.
+- Docker deployment plan.
+- Test strategy.
+- Release checklist.
+
+Berikan contoh implementasi minimal untuk fungsi inti yang telah lolos feasibility study, jika diperlukan untuk membuktikan kelayakan teknis.
+
+Jangan menyajikan pseudocode sebagai kode siap produksi.
+
+Bedakan secara eksplisit:
+
+**DESIGNED / CODE GENERATED / COMPILED / TESTED / VERIFIED ON DEVICE / NOT VERIFIED.**
+
+Jika perangkat, compiler, SDK, atau emulator tidak tersedia, jangan mengklaim build berhasil.
+
+## 13. TAHAP IX — IMPLEMENTATION ROADMAP DAN BIAYA
+
+Bangun roadmap bertahap:
+
+**Phase 0 — Research & Feasibility**
+
+Validasi sumber, API, kebijakan, dan fitur yang mungkin diimplementasikan.
+
+**Phase 1 — MVP**
+
+Aplikasi Android dengan pemeriksaan inti, risk scoring transparan, panduan mitigasi, dan laporan lokal.
+
+**Phase 2 — Advanced Security Monitoring**
+
+Pengembangan fitur jaringan, histori, dan pembaruan indikator, hanya untuk fitur yang layak.
+
+**Phase 3 — Optional Forensic Integration**
+
+Companion desktop, ekspor dan analisis artefak forensik, serta kemampuan untuk pengguna profesional.
+
+**Phase 4 — Production Readiness**
+
+Security review, privacy review, compliance testing, pilot, dan release.
+
+Buat Work Breakdown Structure, sprint backlog, dependency, milestone, acceptance criteria, dan roadmap berbasis durasi estimasi.
+
+Jangan mengarang tanggal mulai proyek.
+
+### Estimasi biaya
+
+Hitung estimasi:
+
+- Development effort.
+- Android development tools.
+- Backend hosting.
+- Database dan penyimpanan.
+- Threat intelligence.
+- Security testing.
+- Google Play publishing.
+- Monitoring.
+- Maintenance tahunan.
+- Biaya penggunaan AI selama pengembangan.
+
+Gunakan data harga terkini yang diverifikasi. Jika tidak tersedia, buat estimasi berbasis asumsi dengan skenario hemat, menengah, dan profesional.
+
+Pisahkan biaya satu kali dan biaya berulang.
+
+## 14. TAHAP X — OUTPUT YANG WAJIB DIHASILKAN
+
+Susun laporan dalam struktur berikut:
+
+1. Executive Summary.
+2. Tujuan dan ruang lingkup aplikasi.
+3. Threat Landscape dan Threat Model.
+4. Deep Research: fakta dan sumber.
+5. Android API Feasibility Matrix.
+6. Benchmark solusi yang tersedia.
+7. PRD dan prioritas fitur.
+8. Full-Stack System Architecture.
+9. Android App Architecture.
+10. Backend dan Database Design.
+11. Detection Algorithm & Risk Scoring.
+12. UX/UI Screen Specification.
+13. API Specification.
+14. Security, Privacy & Compliance.
+15. Test & Validation Plan.
+16. Implementation Blueprint.
+17. MVP Backlog dan Roadmap.
+18. Estimasi anggaran dan kebutuhan tim.
+19. Risk Register & Mitigation Plan.
+20. Final Recommendation dan keputusan GO/NO-GO.
+21. Daftar pustaka dengan URL yang dapat diperiksa.
+
+Tambahkan lampiran:
+
+A. Source Verification Register.
+
+B. Android API Compatibility Register.
+
+C. Functional Requirements Matrix.
+
+D. Non-Functional Requirements Matrix.
+
+E. Testing & Acceptance Criteria.
+
+F. Developer Handoff Specification.
+
+G. Model Allocation & AI Credit Usage Plan.
+
+## 15. PENILAIAN KUALITAS SEBELUM FINALISASI
+
+Lakukan independent quality review.
+
+Beri skor 0–100 atas:
+
+| Dimensi | Bobot |
+|---|---:|
+| Akurasi fakta dan sumber | 20% |
+| Kelayakan teknis Android | 25% |
+| Ketepatan pendekatan deteksi | 20% |
+| Kualitas arsitektur full-stack | 15% |
+| Security dan privacy engineering | 10% |
+| Kesiapan implementasi dan efisiensi biaya | 10% |
+
+Skor adalah asesmen profesional atas kualitas rancangan, bukan bukti akurasi deteksi aplikasi.
+
+Untuk setiap dimensi, jelaskan temuan, kekurangan, dan tindakan perbaikan.
+
+Targetkan skor kualitas rancangan minimal 90/100, tetapi jangan memanipulasi skor untuk memenuhi target.
+
+Jika ada hambatan teknis fundamental, nyatakan secara tegas dan revisi rancangan.
+
+## 16. PROTOKOL EKSEKUSI DAN PENGENDALIAN OUTPUT
+
+Jalankan berurutan:
+
+**Gate 1 — Evidence & Feasibility**
+
+Hasilkan riset, daftar sumber, matriks kelayakan, serta keputusan fitur yang dapat dan tidak dapat diimplementasikan.
+
+**Gate 2 — Product & Architecture**
+
+Hanya fitur yang lolos Gate 1 dapat menjadi bagian dari rancangan produk utama.
+
+**Gate 3 — Security & Detection Design**
+
+Uji konsistensi arsitektur, permission, algoritma, privasi, dan bukti keamanan.
+
+**Gate 4 — Implementation Planning**
+
+Hasilkan spesifikasi implementasi, backlog, estimasi biaya, dan handoff developer.
+
+Jangan langsung menghasilkan ribuan baris kode sebelum keputusan arsitektur tervalidasi.
+
+Pada akhir setiap gate, sediakan:
+
+- Ringkasan keputusan maksimal 300 kata.
+- Hasil yang telah diverifikasi.
+- Informasi yang masih belum pasti.
+- Risiko atau hambatan utama.
+- Keputusan teknis yang dipakai untuk tahap berikutnya.
+- Handoff summary ringkas agar pekerjaan bisa dilanjutkan menggunakan model AI lain dengan kredit seminimal mungkin.
+
+Bila output terlalu panjang, pecah menjadi modul yang dapat digunakan secara independen, tanpa mengorbankan konsistensi.
+
+Apabila sistem memiliki akses eksekusi, jalankan validasi yang tersedia. Jika tidak, nyatakan dengan jelas bahwa hasil baru berupa rancangan dan belum diverifikasi melalui eksekusi.
+
+**Keluaran akhir yang paling penting adalah sebuah rancangan aplikasi Android anti-spyware dan deteksi risiko penyadapan yang realistis, legal, aman, efisien, dapat dikembangkan, dan tidak memberikan kepastian palsu kepada penggunanya.**
+
+## 17. INSTRUKSI MULAI
+
+Mulai sekarang dengan melakukan **Gate 1: Deep Research, Threat Analysis, dan Android API Feasibility Assessment**.
+
+Utamakan sumber resmi yang dapat diakses publik. Tampilkan kemampuan deteksi yang benar-benar mungkin dilakukan, keterbatasan mendasar, dan alternatif desain yang layak.
+
+Lanjutkan ke gate berikutnya berdasarkan hasil yang telah diverifikasi. Jangan mengajukan pertanyaan yang tidak esensial; gunakan asumsi kerja yang wajar dengan label yang jelas.
+
+Pastikan keseluruhan hasil menggunakan bahasa Indonesia yang sederhana, human-like, kritis, teliti, dan tidak mengandung klaim yang tidak didukung bukti.

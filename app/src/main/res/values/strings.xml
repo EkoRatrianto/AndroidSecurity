@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JagaPerangkat</string>
+    <string name="app_tagline">Audit Keamanan &amp; Indikator Pengawasan Lokal</string>
+    <string name="privacy_promise">Seluruh pemeriksaan diproses 100% di perangkat Anda. Tidak ada data yang diunggah otomatis ke server mana pun.</string>
+    <string name="btn_start_audit">Mulai Pemeriksaan Cepat</string>
+    <string name="btn_export_report">Bagikan Ringkasan Laporan</string>
+    <string name="stalkerware_safety_title">Peringatan Keselamatan Korban Stalkerware</string>
+    <string name="stalkerware_safety_body">Jika Anda mencurigai seseorang yang dekat secara fisik memasang aplikasi pelacak pada ponsel ini, jangan langsung menghapus aplikasi tersebut sebelum memiliki rencana keselamatan. Penghapusan mendadak dapat memicu notifikasi ke pelaku.</string>
+</resources>
