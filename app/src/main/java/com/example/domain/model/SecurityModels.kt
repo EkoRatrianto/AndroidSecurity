@@ -160,6 +160,23 @@ data class GuidedCheckItem(
     val actionUriOrIntent: String? = null
 )
 
+data class SensorAndPermissionSummary(
+    val totalHardwareSensors: Int,
+    val hasCameraHardware: Boolean,
+    val hasMicrophoneHardware: Boolean,
+    val hasGpsHardware: Boolean,
+    val supportsMicPrivacyToggle: Boolean?,
+    val supportsCameraPrivacyToggle: Boolean?,
+    val sampleSensorNames: List<String>,
+    val appsWithMicPermission: Int,
+    val appsWithCameraPermission: Int,
+    val appsWithLocationPermission: Int,
+    val appsWithSmsOrCallPermission: Int,
+    val activeAccessibilityCount: Int,
+    val activeNotificationListenerCount: Int,
+    val activeDeviceAdminCount: Int
+)
+
 data class ScanAssessmentResult(
     val scanId: String,
     val timestampMillis: Long,
@@ -170,6 +187,7 @@ data class ScanAssessmentResult(
     val coverageTotalModules: Int,
     val deviceHealth: DeviceHealthSummary,
     val networkMetadata: NetworkMetadataSummary,
+    val sensorAndPermissionSummary: SensorAndPermissionSummary,
     val analyzedApps: List<AppRiskSummary>,
     val indicators: List<SecurityIndicator>,
     val limitations: List<ScanScopeLimitation>

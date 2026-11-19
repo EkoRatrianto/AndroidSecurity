@@ -5,6 +5,7 @@ import com.example.domain.engine.RiskScoringEngine
 import com.example.domain.model.GuidedCheckItem
 import com.example.domain.model.ScanAssessmentResult
 import com.example.domain.model.ScanScopeLimitation
+import com.example.domain.model.SensorAndPermissionSummary
 import com.example.domain.model.ThreatCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -101,6 +102,28 @@ class SecurityAssessmentCoordinator(
 
         onStepProgress("Menyusun skor & laporan lokal...", 1.0f)
 
+        val nonSystemApps = appOut.apps.filter { !it.isSystemApp }
+        val sensorAndPermissionSummary = SensorAndPermissionSummary(
+            totalHardwareSensors = deviceOut.sensorHardware.totalHardwareSensors,
+            hasCameraHardware = deviceOut.sensorHardware.hasCameraHardware,
+            hasMicrophoneHardware = deviceOut.sensorHardware.hasMicrophoneHardware,
+            hasGpsHardware = deviceOut.sensorHardware.hasGpsHardware,
+            supportsMicPrivacyToggle = deviceOut.sensorHardware.supportsMicPrivacyToggle,
+            supportsCameraPrivacyToggle = deviceOut.sensorHardware.supportsCameraPrivacyToggle,
+            sampleSensorNames = deviceOut.sensorHardware.sampleSensorNames,
+            appsWithMicPermission = nonSystemApps.count { "Mikrofon" in it.dangerousPermissions },
+            appsWithCameraPermission = nonSystemApps.count { "Kamera" in it.dangerousPermissions },
+            appsWithLocationPermission = nonSystemApps.count {
+                "Lokasi Presisi" in it.dangerousPermissions || "Lokasi Latar Belakang" in it.dangerousPermissions
+            },
+            appsWithSmsOrCallPermission = nonSystemApps.count {
+                "Baca SMS" in it.dangerousPermissions || "Terima SMS" in it.dangerousPermissions || "Riwayat Panggilan" in it.dangerousPermissions
+            },
+            activeAccessibilityCount = configOut.accessibilityPackages.size,
+            activeNotificationListenerCount = configOut.notificationListenerPackages.size,
+            activeDeviceAdminCount = configOut.deviceAdminPackages.size
+        )
+
         ScanAssessmentResult(
             scanId = UUID.randomUUID().toString(),
             timestampMillis = System.currentTimeMillis(),
@@ -111,6 +134,7 @@ class SecurityAssessmentCoordinator(
             coverageTotalModules = totalModules,
             deviceHealth = deviceOut.summary,
             networkMetadata = networkOut.summary,
+            sensorAndPermissionSummary = sensorAndPermissionSummary,
             analyzedApps = appOut.apps,
             indicators = allIndicators,
             limitations = limitations

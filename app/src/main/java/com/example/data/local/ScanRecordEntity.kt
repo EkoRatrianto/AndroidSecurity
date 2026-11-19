@@ -15,6 +15,10 @@ data class ScanRecordEntity(
     val coverageTotal: Int,
     val indicatorCount: Int,
     val highSeverityCount: Int,
+    val activeMicAppsCount: Int,
+    val activeCameraAppsCount: Int,
+    val activeLocationAppsCount: Int,
+    val enabledSensorsCount: Int,
     val topFindingTitle: String,
     val shareableReportText: String
 )

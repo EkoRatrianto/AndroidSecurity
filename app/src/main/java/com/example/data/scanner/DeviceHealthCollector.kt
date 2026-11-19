@@ -2,6 +2,10 @@ package com.example.data.scanner
 
 import android.app.KeyguardManager
 import android.content.Context
+import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorManager
+import android.hardware.SensorPrivacyManager
 import android.os.Build
 import android.provider.Settings
 import com.example.domain.model.DetectionReliability
@@ -18,8 +22,19 @@ import java.util.concurrent.TimeUnit
 
 class DeviceHealthCollector(private val context: Context) {
 
+    data class SensorHardwareInfo(
+        val totalHardwareSensors: Int,
+        val hasCameraHardware: Boolean,
+        val hasMicrophoneHardware: Boolean,
+        val hasGpsHardware: Boolean,
+        val supportsMicPrivacyToggle: Boolean?,
+        val supportsCameraPrivacyToggle: Boolean?,
+        val sampleSensorNames: List<String>
+    )
+
     data class Output(
         val summary: DeviceHealthSummary,
+        val sensorHardware: SensorHardwareInfo,
         val indicators: List<SecurityIndicator>,
         val moduleExecuted: Boolean
     )
@@ -161,7 +176,53 @@ class DeviceHealthCollector(private val context: Context) {
             patchAgeStatus = patchAgeStatus
         )
 
-        return Output(summary = summary, indicators = indicators, moduleExecuted = true)
+        val sensorHardware = collectSensorHardwareInfo()
+
+        return Output(
+            summary = summary,
+            sensorHardware = sensorHardware,
+            indicators = indicators,
+            moduleExecuted = true
+        )
+    }
+
+    private fun collectSensorHardwareInfo(): SensorHardwareInfo {
+        val pm = context.packageManager
+        val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as? SensorManager
+        val allSensors = runCatching {
+            sensorManager?.getSensorList(Sensor.TYPE_ALL).orEmpty()
+        }.getOrDefault(emptyList())
+
+        val distinctNames = allSensors.mapNotNull { it.name?.trim() }
+            .filter { it.isNotBlank() }
+            .distinct()
+            .take(6)
+
+        val hasCamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
+        val hasMic = pm.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)
+        val hasGps = pm.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
+
+        var supportsMicToggle: Boolean? = null
+        var supportsCameraToggle: Boolean? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            runCatching {
+                val spm = context.getSystemService(SensorPrivacyManager::class.java)
+                if (spm != null) {
+                    supportsMicToggle = spm.supportsSensorToggle(SensorPrivacyManager.Sensors.MICROPHONE)
+                    supportsCameraToggle = spm.supportsSensorToggle(SensorPrivacyManager.Sensors.CAMERA)
+                }
+            }
+        }
+
+        return SensorHardwareInfo(
+            totalHardwareSensors = allSensors.size,
+            hasCameraHardware = hasCamera,
+            hasMicrophoneHardware = hasMic,
+            hasGpsHardware = hasGps,
+            supportsMicPrivacyToggle = supportsMicToggle,
+            supportsCameraPrivacyToggle = supportsCameraToggle,
+            sampleSensorNames = distinctNames
+        )
     }
 
     private fun checkAdvancedProtectionMode(): Boolean? {

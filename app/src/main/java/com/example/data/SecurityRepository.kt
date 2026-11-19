@@ -45,6 +45,7 @@ class SecurityRepository(context: Context) {
         val topTitle = result.indicators.firstOrNull()?.title
             ?: "Tidak ada indikator risiko menonjol"
 
+        val sp = result.sensorAndPermissionSummary
         val entity = ScanRecordEntity(
             scanId = result.scanId,
             timestampMillis = result.timestampMillis,
@@ -56,6 +57,10 @@ class SecurityRepository(context: Context) {
             coverageTotal = result.coverageTotalModules,
             indicatorCount = result.indicators.size,
             highSeverityCount = highCount,
+            activeMicAppsCount = sp.appsWithMicPermission,
+            activeCameraAppsCount = sp.appsWithCameraPermission,
+            activeLocationAppsCount = sp.appsWithLocationPermission,
+            enabledSensorsCount = sp.totalHardwareSensors,
             topFindingTitle = topTitle,
             shareableReportText = coordinator.formatShareableReport(result)
         )
